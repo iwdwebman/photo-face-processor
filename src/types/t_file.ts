@@ -6,10 +6,9 @@ export type Photo = {
 export type PhotoList = Photo[];
 
 export type FaceFile = {
-   faces: {
-      x: number;
-      y: number;
-      width: number;
-      height: number;
-   }[];
-}
+   x: number;
+   y: number;
+   width: number;
+   height: number;
+   confidence: number;
+}[];

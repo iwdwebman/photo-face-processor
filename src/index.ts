@@ -83,7 +83,22 @@ const createFaceFile = async (photo: Photo) : Promise<FaceFile | null> => {
       }
       console.log(`Loaded image for ${photo.image}`);
       const detection = await faceapi.detectAllFaces(tensor, options);
-      console.log(`Detecting face for ${photo.image}::`, JSON.stringify(detection, null, 2));
+
+      if (detection) {
+         const faces = detection.map((face) => {
+            return {
+               x: face.box.x,
+               y: face.box.y,
+               width: face.box.width,
+               height: face.box.height,
+               confidence: face.score
+            };
+         });
+
+         return faces;
+      }
+
+      return [];
    } catch (error) {
       console.log(`Error detecting face for ${photo.image}::`, error);
       return null;
@@ -92,8 +107,6 @@ const createFaceFile = async (photo: Photo) : Promise<FaceFile | null> => {
          tensor.dispose();
       }
    }
-
-   return null;
 };
 
 const doWork = async () => {
