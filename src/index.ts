@@ -122,9 +122,7 @@ const doWork = async () => {
    await faceapi.nets.faceRecognitionNet.loadFromDisk(modelPath);
    await faceapi.nets.faceExpressionNet.loadFromDisk(modelPath);
 
-   console.log("Are we fucking loaded?", faceapi.nets.ssdMobilenetv1.isLoaded);
-
-   for (let i = 0; i < 10; i++) {
+   for (let i = 0; i < filesWithNoFaces.length; i++) {
       const faceData = await createFaceFile(filesWithNoFaces[i]);
 
       if (!faceData) {
